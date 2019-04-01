@@ -1,0 +1,78 @@
+import pygame as pg
+import random
+import os
+
+RED = ( 255, 0, 0)
+GREEN = ( 0, 255, 0)
+BLUE = ( 0, 0, 255)
+HOTPINK = ( 244, 66, 182)
+GREY = ( 73, 73, 73)
+LIGHTGREY = ( 160, 160, 160)
+YELLOW = ( 255, 251, 35 )
+LIGHTBLUE = ( 66, 134, 244)
+FUCHSIA = ( 255, 0, 255)
+PURPLE = ( 128, 0, 128)
+FLOURESCENTGREEN = ( 63, 255, 0)
+WHITE = ( 255, 255, 255)
+BLACK = ( 0, 0, 0)
+
+_image_library = {}
+def get_image(path): #load an image
+        global _image_library
+        image = _image_library.get(path)
+        if image == None:
+                canonicalized_path = path.replace('/', os.sep).replace('\\', os.sep)
+                image = pg.image.load(canonicalized_path)
+                _image_library[path] = image
+        return image
+
+KJ = pg.image.load("KJ.png")
+
+if __name__ == '__main__':
+    running = True
+    pg.init()
+    screen = pg.display.set_mode((1200, 650))
+    screen_rect = screen.get_rect()
+    clock = pg.time.Clock()
+    timer = 0
+    bg = (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255)!=(0,0,0)!=(255,255,255))
+
+    rectx = 475
+    recty = 250
+    rectchangex = 5
+    rectchangey = 5
+    pg.draw.rect(screen, BLACK, [rectx, recty, 250, 151], 2)  # selection screen
+
+    while running:
+        screen.fill(bg)
+        rectx = 475
+        recty = 250
+        rectchangex = 5
+        rectchangey = 5
+        pg.draw.rect(screen, BLACK, [rectx, recty, 250, 151], 2)  # selection screen
+        font = pg.font.SysFont("comicsansms", 35)
+        text = font.render("New Game", True, BLACK)
+        screen.blit(text, (688 - text.get_width(), 300 - text.get_height()))
+        text = font.render("Resume Game", True, BLACK)
+        screen.blit(text, (712 - text.get_width(), 350 - text.get_height()))
+        text = font.render("Quit", True, BLACK)
+        screen.blit(text, (635 - text.get_width(), 400 - text.get_height()))
+        text = font.render("Minesweeper Feat.", True, BLACK)
+        screen.blit(text, (753 - text.get_width(), 100 - text.get_height()))
+        text = font.render("Kim Jong Un", True, BLACK)
+        screen.blit(text, (695 - text.get_width(), 140 - text.get_height()))
+        text = font.render("A PC Production", True, BLACK)
+        screen.blit(text, (727 - text.get_width(), 650 - text.get_height()))
+        screen.blit("KJ.png")
+
+        for event in pg.event.get():
+            if event.type == pg.QUIT:
+                running = False
+
+
+
+        if pg.time.get_ticks() - timer > 300: #change the number value to change how long a color lasts on the page
+            timer = pg.time.get_ticks()
+            bg = (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255)!=(0,0,0)!=(255,255,255))
+        pg.display.update()
+        clock.tick(60)
