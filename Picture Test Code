@@ -1,0 +1,24 @@
+#Test a picuter with this code to find out if my computer is fried
+import pygame as pg
+import math
+import random
+import os
+import sys
+from pygame.locals import *
+
+green=(0,255,0)
+kj=pg.image.load("KJ.png")
+
+pg.init()
+screen=pg.display.set_mode((1200,650))
+screen.fill(green)
+screen.blit("kj").convert(), ((20,20))
+
+
+
+while True:
+    for event in pg.event.get():
+        if event.type == QUIT:
+            pg.quit()
+            sys.exit()
+    pg.display.update()
