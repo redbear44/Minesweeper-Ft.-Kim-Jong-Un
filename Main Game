@@ -1,4 +1,4 @@
-import pygame as pg
+import pygame, sys
 import random
 import os
 
@@ -22,35 +22,35 @@ def get_image(path): #load an image
         image = _image_library.get(path)
         if image == None:
                 canonicalized_path = path.replace('/', os.sep).replace('\\', os.sep)
-                image = pg.image.load(canonicalized_path)
+                image = pygame.image.load(canonicalized_path)
                 _image_library[path] = image
         return image
 
-KJ = pg.image.load("KJ.png")
+KJ = pygame.image.load("KJ.png")
 
 if __name__ == '__main__':
-    running = True
-    pg.init()
-    screen = pg.display.set_mode((1200, 650))
-    screen_rect = screen.get_rect()
-    clock = pg.time.Clock()
-    timer = 0
-    bg = (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255)!=(0,0,0)!=(255,255,255))
+        running = True
+        pygame.init()
+        screen = pygame.display.set_mode((1200, 650))
+        screen_rect = screen.get_rect()
+        clock = pygame.time.Clock()
+        timer = 0
+        bg = (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255)!=(0,0,0)!=(255,255,255))
 
-    rectx = 475
-    recty = 250
-    rectchangex = 5
-    rectchangey = 5
-    pg.draw.rect(screen, BLACK, [rectx, recty, 250, 151], 2)  # selection screen
+        rectx = 475 
+        recty = 250
+        rectchangex = 5
+        rectchangey = 5
+        pygame.draw.rect(screen, BLACK, [rectx, recty, 250, 151], 2)  # selection screen
 
-    while running:
+while running:
         screen.fill(bg)
         rectx = 475
         recty = 250
         rectchangex = 5
         rectchangey = 5
-        pg.draw.rect(screen, BLACK, [rectx, recty, 250, 151], 2)  # selection screen
-        font = pg.font.SysFont("comicsansms", 35)
+        pygame.draw.rect(screen, BLACK, [rectx, recty, 250, 151], 2)  # selection screen
+        font = pygame.font.SysFont("comicsansms", 35)
         text = font.render("New Game", True, BLACK)
         screen.blit(text, (688 - text.get_width(), 300 - text.get_height()))
         text = font.render("Resume Game", True, BLACK)
@@ -63,16 +63,15 @@ if __name__ == '__main__':
         screen.blit(text, (695 - text.get_width(), 140 - text.get_height()))
         text = font.render("A PC Production", True, BLACK)
         screen.blit(text, (727 - text.get_width(), 650 - text.get_height()))
-        screen.blit("KJ.png")
+        
+        for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                        pygame.quit()
+                        sys.exit() 
 
-        for event in pg.event.get():
-            if event.type == pg.QUIT:
-                running = False
 
-
-
-        if pg.time.get_ticks() - timer > 300: #change the number value to change how long a color lasts on the page
-            timer = pg.time.get_ticks()
-            bg = (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255)!=(0,0,0)!=(255,255,255))
-        pg.display.update()
+        if pygame.time.get_ticks() - timer > 300: #change the number value to change how long a color lasts on the page
+                timer = pygame.time.get_ticks()
+                bg = (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255)!=(0,0,0)!=(255,255,255))
+        pygame.display.update()
         clock.tick(60)
