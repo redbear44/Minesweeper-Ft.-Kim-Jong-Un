@@ -7,7 +7,7 @@
 #New Game Coordinates =
 #Level Select Coordinates =
 #Quir Coordinates =
-#///////////////////////////////////////////////////////////////////////////////////////
+#//////////////////////////////////////////////////////////////////////////////////////
 
 import pygame, sys
 import random
@@ -41,6 +41,9 @@ def get_image(path):  # load an image
 
 
 KJ = pygame.image.load("KJ.png")
+bomb = pygame.image.load("bomb.png")
+nuke = pygame.image.load("nuke.png")
+nuke2 = pygame.image.load("nuke2.png")
 
 if __name__ == '__main__':
     running = True
@@ -63,10 +66,33 @@ while running:
     recty = 250
     rectchangex = 5
     rectchangey = 5
+    mouse=pygame.mouse.get_pos()
+    click=pygame.mouse.get_pressed()
+    action=0
     pygame.draw.rect(screen, BLACK, [rectx, recty, 250, 151], 2)  # selection screen
-    pygame.draw.rect(screen, BLACK, [510, 257, 185, 44], 2) #resume game
-    pygame.draw.rect(screen, BLACK, [485, 305, 232, 44], 2)  #Level Select
-    pygame.draw.rect(screen, BLACK, [550, 354, 97, 44], 2)  #Quit
+    pygame.draw.rect(screen, LIGHTGREY, [510, 257, 185, 44], 0) #new game
+    pygame.draw.rect(screen, LIGHTGREY, [485, 305, 232, 44], 0)  #Level Select
+    pygame.draw.rect(screen, LIGHTGREY, [550, 354, 97, 44], 0)  #Quit
+
+    if 550+97>mouse[0]>550 and 354+44>mouse[1]>354: #QUIT button
+        pygame.draw.rect(screen,WHITE,(550,354,97,44))
+        if click[0]==1:
+            pygame.QUIT()
+            sys.exit()
+    if 485+232>mouse[0]>485 and 305+44>mouse[1]>305: #Level select button
+        pygame.draw.rect(screen,WHITE,(485,305,232,44))
+        if click[0]==1:
+            pygame.QUIT()
+            sys.exit()
+           #Make a level select screen
+
+    if 510+185>mouse[0]>510 and 257+44>mouse[1]>257: #new game
+        pygame.draw.rect(screen,WHITE,(510,257,185,44))
+        if click[0]==1:
+            pygame.QUIT()
+            sys.exit()
+           #make a level select screen
+
     font = pygame.font.SysFont("comicsansms", 35)
     text = font.render("New Game", True, BLACK)
     screen.blit(text, (688 - text.get_width(), 300 - text.get_height()))
@@ -80,6 +106,11 @@ while running:
     screen.blit(text, (695 - text.get_width(), 140 - text.get_height()))
     text = font.render("A PC Production", True, BLACK)
     screen.blit(text, (727 - text.get_width(), 650 - text.get_height()))
+    screen.blit(bomb, (10,10))
+    screen.blit(KJ, (5,5))
+    screen.blit(nuke, (800,50))
+    screen.blit(nuke2, (220,50))
+    pygame.display.flip()
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
