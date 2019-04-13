@@ -44,6 +44,7 @@ KJ = pygame.image.load("KJ.png")
 bomb = pygame.image.load("bomb.png")
 nuke = pygame.image.load("nuke.png")
 nuke2 = pygame.image.load("nuke2.png")
+kim2 = pygame.image.load("kim2.png")
 
 if __name__ == '__main__':
     running = True
@@ -52,13 +53,14 @@ if __name__ == '__main__':
     screen_rect = screen.get_rect()
     clock = pygame.time.Clock()
     timer = 0
-    bg = (random.randint(130, 220), random.randint(130, 220), random.randint(130, 220) != (0, 0, 0) != (255, 255, 255))
+    bg = (random.randint(100, 220), random.randint(100, 220), random.randint(100, 220) != (0, 0, 0) != (255, 255, 255))
 
     rectx = 475
     recty = 250
     rectchangex = 5
     rectchangey = 5
     pygame.draw.rect(screen, BLACK, [rectx, recty, 250, 151], 2)  # selection screen
+    pygame.display.set_caption("Mine Sweeper Feat. Kim Jong Un")
 
 while running:
     screen.fill(bg)
@@ -104,12 +106,13 @@ while running:
     screen.blit(text, (753 - text.get_width(), 100 - text.get_height()))
     text = font.render("Kim Jong Un", True, BLACK)
     screen.blit(text, (695 - text.get_width(), 140 - text.get_height()))
-    text = font.render("A PC Production", True, BLACK)
-    screen.blit(text, (727 - text.get_width(), 650 - text.get_height()))
+    #text = font.render("A PC Production", True, BLACK)
+    #screen.blit(text, (727 - text.get_width(), 650 - text.get_height()))
     screen.blit(bomb, (10,10))
     screen.blit(KJ, (5,5))
     screen.blit(nuke, (800,50))
     screen.blit(nuke2, (220,50))
+    screen.blit(kim2, (490,500))
     pygame.display.flip()
 
     for event in pygame.event.get():
@@ -119,6 +122,6 @@ while running:
 
     if pygame.time.get_ticks() - timer > 300:  # change the number value to change how long a color lasts on the page
         timer = pygame.time.get_ticks()
-        bg = (random.randint(130, 220), random.randint(130, 220), random.randint(130, 220) != (0, 0, 0) != (255, 255, 255))
+        bg = (random.randint(100, 220), random.randint(100, 220), random.randint(100, 220) != (0, 0, 0) != (255, 255, 255))
     pygame.display.update()
     clock.tick(60) #fps (60 is fine but could be reduced if lagging because minesweeper doesn't really refresh a lot
