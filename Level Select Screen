@@ -1,0 +1,124 @@
+import pygame, sys
+import random
+import os
+
+RED = (255, 0, 0)
+GREEN = (0, 255, 0)
+BLUE = (0, 0, 255)
+HOTPINK = (244, 66, 182)
+GREY = (73, 73, 73)
+LIGHTGREY = (160, 160, 160)
+YELLOW = (255, 251, 35)
+LIGHTBLUE = (66, 134, 244)
+FUCHSIA = (255, 0, 255)
+PURPLE = (128, 0, 128)
+FLOURESCENTGREEN = (63, 255, 0)
+WHITE = (255, 255, 255)
+BLACK = (0, 0, 0)
+
+def sixXsix():
+    while True:
+        screen.fill(WHITE)
+        pygame.display.update()
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+
+
+def nineXnine():
+    while True:
+        screen.fill(WHITE)
+        pygame.display.update()
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+
+
+def sixteenXsixteen():
+    while True:
+        screen.fill(WHITE)
+        pygame.display.update()
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+
+
+
+def thirtyXsixteen():
+    while True:
+        screen.fill(WHITE)
+        pygame.display.update()
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+
+
+
+
+if __name__ == '__main__':
+    running = True
+    pygame.init()
+    screen = pygame.display.set_mode((1200, 650))
+    rectx = 475
+    recty = 250
+    pygame.display.set_caption("Mine Sweeper Feat. Kim Jong Un")
+    clicksound = pygame.mixer.Sound('click.wav')
+
+while running:
+    screen.fill(GREEN)
+    pygame.draw.rect(screen, BLACK, [rectx, recty-75, 250, 235], 2)
+    mouse = pygame.mouse.get_pos()
+    click = pygame.mouse.get_pressed()
+    action = 0
+    if 556 + 88 > mouse[0] > 556 and 239 + 36 > mouse[1] > 239:
+        pygame.draw.rect(screen, WHITE, (556, 239, 88, 36))
+        if click[0] == 1:
+            clicksound.play()
+            sixXsix()
+
+    if 556 + 88 > mouse[0] > 556 and 278 + 36 > mouse[1] > 278: #9x9
+        pygame.draw.rect(screen, WHITE, (556, 278, 88, 36))
+        if click[0] == 1:
+            clicksound.play()
+            nineXnine()
+
+    if 547 + 108 > mouse[0] > 547 and 317 + 36 > mouse[1] > 317: #16x16
+        pygame.draw.rect(screen, WHITE, (547, 317, 108, 36))
+        if click[0] == 1:
+            clicksound.play()
+            sixteenXsixteen()
+
+    if 547 + 108 > mouse[0] > 547 and 356 + 36 > mouse[1] > 356: #30x16
+        pygame.draw.rect(screen, WHITE, (547, 356, 108, 36))
+        if click[0] == 1:
+            clicksound.play()
+            thirtyXsixteen()
+
+    font = pygame.font.SysFont("comicsansms", 35)
+    text = font.render("Level Select", True, BLACK)
+    screen.blit(text, (703 - text.get_width(), 232 - text.get_height()))
+    text = font.render("6x6", True, BLACK)
+    screen.blit(text, (632 - text.get_width(), 280 - text.get_height()))
+    text = font.render("9x9", True, BLACK)
+    screen.blit(text, (632 - text.get_width(), 320 - text.get_height()))
+    text = font.render("16x16", True, BLACK)
+    screen.blit(text, (648 - text.get_width(), 358 - text.get_height()))
+    text = font.render("30x16", True, BLACK)
+    screen.blit(text, (648 - text.get_width(), 398 - text.get_height()))
+    #pygame.draw.rect(screen, BLACK, [556, 239, 88, 36], 2) #6x6
+    #pygame.draw.rect(screen, BLACK, [556, 278, 88, 36], 2) #9x9
+    #pygame.draw.rect(screen, BLACK, [547, 317, 108, 36], 2) #16x16
+    #pygame.draw.rect(screen, BLACK, [547, 356, 108, 36], 2) #30x16
+
+
+
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.quit()
+            sys.exit()
+
+    pygame.display.update()
