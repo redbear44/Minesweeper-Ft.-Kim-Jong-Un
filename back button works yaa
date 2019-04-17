@@ -1,0 +1,246 @@
+#notes
+#Add clickable buttons to home screen
+#Difficuly select --> Noob(6x6, 5 mines), Easy(9x9, 10 mines), Medium(16x16, 40 mines), Expert(30x16, 99 mines)
+#Level select --> pick level 1,2,3,4,5
+#Quit --> Exit game
+
+#New Game Coordinates =
+#Level Select Coordinates =
+#Quir Coordinates =
+#//////////////////////////////////////////////////////////////////////////////////////
+
+#https://www.reddit.com/r/pygame/comments/2laqft/switching_background_colors_within_a_loop/
+import pygame, sys
+import random
+import os
+
+RED = (255, 0, 0)
+GREEN = (0, 255, 0)
+BLUE = (0, 0, 255)
+HOTPINK = (244, 66, 182)
+GREY = (73, 73, 73)
+LIGHTGREY = (160, 160, 160)
+YELLOW = (255, 251, 35)
+LIGHTBLUE = (66, 134, 244)
+FUCHSIA = (255, 0, 255)
+PURPLE = (128, 0, 128)
+FLOURESCENTGREEN = (63, 255, 0)
+WHITE = (255, 255, 255)
+BLACK = (0, 0, 0)
+
+
+
+def mainScreen():
+        screen.fill(bg)
+        rectx = 475
+        recty = 250
+        rectchangex = 5
+        rectchangey = 5
+        mouse = pygame.mouse.get_pos()
+        click = pygame.mouse.get_pressed()
+        action = 0
+        pygame.draw.rect(screen, BLACK, [rectx, recty, 250, 151], 2)  # selection screen
+        pygame.draw.rect(screen, LIGHTGREY, [510, 257, 185, 44], 0)  # new game
+        pygame.draw.rect(screen, LIGHTGREY, [519, 305, 175, 44], 0)  # creators
+        pygame.draw.rect(screen, LIGHTGREY, [550, 354, 97, 44], 0)  # Quit
+
+        if 550 + 97 > mouse[0] > 550 and 354 + 44 > mouse[1] > 354:  # QUIT button
+            pygame.draw.rect(screen, WHITE, (550, 354, 97, 44))
+            if click[0] == 1:
+                pygame.quit()
+                sys.exit()
+
+        if 519 + 175 > mouse[0] > 519 and 305 + 44 > mouse[1] > 305:  # creators button
+            pygame.draw.rect(screen, WHITE, (519, 305, 175, 44))
+            if click[0] == 1:
+                clicksound.play()
+                creators()
+
+        if 510 + 185 > mouse[0] > 510 and 257 + 44 > mouse[1] > 257:  # new game
+            pygame.draw.rect(screen, WHITE, (510, 257, 185, 44))
+            if click[0] == 1:
+                clicksound.play()
+                newgame()
+
+        font = pygame.font.SysFont("comicsansms", 35)
+        text = font.render("New Game", True, BLACK)
+        screen.blit(text, (688 - text.get_width(), 300 - text.get_height()))
+        text = font.render("Creators", True, BLACK)
+        screen.blit(text, (678 - text.get_width(), 350 - text.get_height()))
+        text = font.render("Quit", True, BLACK)
+        screen.blit(text, (635 - text.get_width(), 400 - text.get_height()))
+        text = font.render("Minesweeper Feat.", True, BLACK)
+        screen.blit(text, (753 - text.get_width(), 100 - text.get_height()))
+        text = font.render("Kim Jong Un", True, BLACK)
+        screen.blit(text, (695 - text.get_width(), 140 - text.get_height()))
+        # text = font.render("A PC Production", True, BLACK)
+        # screen.blit(text, (727 - text.get_width(), 650 - text.get_height()))
+        screen.blit(bomb, (10, 10))
+        screen.blit(KJ, (5, 5))
+        screen.blit(nuke, (800, 50))
+        screen.blit(nuke2, (220, 50))
+        screen.blit(kim2, (490, 500))
+        pygame.display.flip()
+        pygame.display.update()
+
+def newgame():
+        screen.fill(GREEN)
+        pygame.draw.rect(screen, BLACK, [rectx, recty-75, 250, 235], 2)
+        mouse = pygame.mouse.get_pos()
+        click = pygame.mouse.get_pressed()
+        action = 0
+        if 556 + 88 > mouse[0] > 556 and 239 + 36 > mouse[1] > 239:
+            pygame.draw.rect(screen, WHITE, (556, 239, 88, 36))
+            if click[0] == 1:
+                clicksound.play()
+                sixXsix()
+    
+        if 556 + 88 > mouse[0] > 556 and 278 + 36 > mouse[1] > 278: #9x9
+            pygame.draw.rect(screen, WHITE, (556, 278, 88, 36))
+            if click[0] == 1:
+                clicksound.play()
+                nineXnine()
+    
+        if 547 + 108 > mouse[0] > 547 and 317 + 36 > mouse[1] > 317: #16x16
+            pygame.draw.rect(screen, WHITE, (547, 317, 108, 36))
+            if click[0] == 1:
+                clicksound.play()
+                sixteenXsixteen()
+    
+        if 547 + 108 > mouse[0] > 547 and 356 + 36 > mouse[1] > 356: #30x16
+            pygame.draw.rect(screen, WHITE, (547, 356, 108, 36))
+            if click[0] == 1:
+                clicksound.play()
+                thirtyXsixteen()
+    
+        font = pygame.font.SysFont("comicsansms", 35)
+        text = font.render("Level Select", True, BLACK)
+        screen.blit(text, (703 - text.get_width(), 232 - text.get_height()))
+        text = font.render("6x6", True, BLACK)
+        screen.blit(text, (632 - text.get_width(), 280 - text.get_height()))
+        text = font.render("9x9", True, BLACK)
+        screen.blit(text, (632 - text.get_width(), 320 - text.get_height()))
+        text = font.render("16x16", True, BLACK)
+        screen.blit(text, (648 - text.get_width(), 358 - text.get_height()))
+        text = font.render("30x16", True, BLACK)
+        screen.blit(text, (648 - text.get_width(), 398 - text.get_height()))
+
+def creators():
+   onscreen = True
+   while onscreen:
+        screen.fill(WHITE)
+        screen.blit(PeterPic, (10,10))
+        screen.blit(AndrewPic, (650,10))
+        text = font.render("Peter 'voz' Chuchra", True, BLACK)
+        screen.blit(text, (370 - text.get_width(), 455 - text.get_height()))
+        text = font.render("Andrew 'parkaz' Park", True, BLACK)
+        screen.blit(text, (1085 - text.get_width(), 450 - text.get_height()))
+        pygame.draw.rect(screen, WHITE, [0,600,100, 50], 0)
+        text = font.render("Back", True, BLACK)
+        screen.blit(text, (85 - text.get_width(), 649 - text.get_height()))
+        mouse = pygame.mouse.get_pos()
+        click = pygame.mouse.get_pressed()
+        if 0 + 100 > mouse[0] > 0 and 600 + 50 > mouse[1] > 600:
+            pygame.draw.rect(screen, GREEN, (0,600,100, 50))
+            text = font.render("Back", True, BLACK)
+            screen.blit(text, (85 - text.get_width(), 649 - text.get_height()))
+            if click[0] == 1:
+                onscreen = False
+                mainScreen()
+               
+        pygame.display.update()
+
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+        
+
+def sixXsix():
+    while True:
+        screen.fill(WHITE)
+        pygame.display.update()
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+
+
+def nineXnine():
+    while True:
+        screen.fill(WHITE)
+        pygame.display.update()
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+
+
+def sixteenXsixteen():
+    while True:
+        screen.fill(WHITE)
+        pygame.display.update()
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+
+
+
+def thirtyXsixteen():
+    while True:
+        screen.fill(WHITE)
+        pygame.display.update()
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+
+
+KJ = pygame.image.load("KJ.png")
+bomb = pygame.image.load("bomb.png")
+nuke = pygame.image.load("nuke.png")
+nuke2 = pygame.image.load("nuke2.png")
+kim2 = pygame.image.load("kim2.png")
+PeterPic = pygame.image.load("MeLOL.JPG")
+PeterPic = pygame.transform.scale(PeterPic, (400,400))
+AndrewPic = pygame.image.load("AndrewPark.jpeg")
+AndrewPic = pygame.transform.scale(AndrewPic, (515, 386))
+AndrewPic = pygame.transform.rotate(AndrewPic, 180)
+
+
+if __name__ == '__main__':
+    running = True
+    pygame.init()
+    screen = pygame.display.set_mode((1200, 650))
+    screen_rect = screen.get_rect()
+    clock = pygame.time.Clock()
+    timer = 0
+    bg = (random.randint(100, 220), random.randint(100, 220), random.randint(100, 220) != (0, 0, 0) != (255, 255, 255))
+
+    clicksound = pygame.mixer.Sound("click.wav")
+    
+    font = pygame.font.SysFont("comicsansms", 35)
+
+
+    rectx = 475
+    recty = 250
+    rectchangex = 5
+    rectchangey = 5
+    pygame.draw.rect(screen, BLACK, [rectx, recty, 250, 151], 2)  # selection screen
+    pygame.display.set_caption("Mine Sweeper Feat. Kim Jong Un")
+
+while running:
+    mainScreen()
+
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.quit()
+            sys.exit()
+
+    if pygame.time.get_ticks() - timer > 300:  # change the number value to change how long a color lasts on the page
+        timer = pygame.time.get_ticks()
+        bg = (random.randint(100, 220), random.randint(100, 220), random.randint(100, 220) != (0, 0, 0) != (255, 255, 255))
+    pygame.display.update()
+    clock.tick(60) #fps (60 is fine but could be reduced if lagging because minesweeper doesn't really refresh a lot
