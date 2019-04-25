@@ -6,7 +6,7 @@
 
 # New Game Coordinates =
 # Level Select Coordinates =
-# Quir Coordinates =
+# Quit Coordinates =
 # //////////////////////////////////////////////////////////////////////////////////////
 
 # https://www.reddit.com/r/pygame/comments/2laqft/switching_background_colors_within_a_loop/
@@ -117,6 +117,20 @@ def newgame():
         pygame.draw.rect(screen, BLACK, [1023, 514, 88, 36], 2) #9x9
         pygame.draw.rect(screen, BLACK, [1013, 554, 108, 36], 2) # 16x16
         pygame.draw.rect(screen, BLACK, [1013, 593, 108, 36], 2) #30x16
+        font = pygame.font.SysFont("comicsansms", 35)
+        text = font.render("If You Beat Level 3 You Are Legally Skilled", True, BLACK)
+        screen.blit(text, (949 - text.get_width(), 66 - text.get_height()))
+        screen.blit(minefield, (100, 100))
+        screen.blit(bomblogo, (1000, 475))
+        screen.blit(bomblogo, (1000, 517))
+        screen.blit(bomblogo, (1118, 517))
+        screen.blit(bomblogo, (990, 556))
+        screen.blit(bomblogo, (1127, 556))
+        screen.blit(bomblogo, (965, 556))
+        screen.blit(bomblogo, (990, 596))
+        screen.blit(bomblogo, (1127, 596))
+        screen.blit(bomblogo, (965, 596))
+        screen.blit(bomblogo, (1150, 596))
         if 1023 + 88 > mouse[0] > 1023 and 473 + 36 > mouse[1] > 473: #6x6
             pygame.draw.rect(screen, WHITE, (1023, 473, 89, 37))
             if click[0] == 1:
@@ -240,7 +254,11 @@ KJ = pygame.image.load("KJ.png")
 bomb = pygame.image.load("bomb.png")
 nuke = pygame.image.load("nuke.png")
 nuke2 = pygame.image.load("nuke2.png")
+minefield = pygame.image.load("minefield2.jpg")
+minefield = pygame.transform.scale(minefield, (834, 418))
 kim2 = pygame.image.load("kim2.png")
+bomblogo = pygame.image.load("bomblogo.png")
+bomblogo = pygame.transform.scale(bomblogo, (20, 25))
 PeterPic = pygame.image.load("MeLOL.JPG")
 PeterPic = pygame.transform.scale(PeterPic, (400, 400))
 AndrewPic = pygame.image.load("AndrewPark.jpeg")
@@ -257,6 +275,7 @@ if __name__ == '__main__':
     bg = (random.randint(100, 220), random.randint(100, 220), random.randint(100, 220) != (0, 0, 0) != (255, 255, 255))
 
     clicksound = pygame.mixer.Sound("click.wav")
+    #bombsound = pygame.mixer.Sound("explosion.mp3")
 
     font = pygame.font.SysFont("comicsansms", 35)
 
