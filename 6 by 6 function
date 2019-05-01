@@ -1,0 +1,67 @@
+import pygame, sys
+import random
+import time
+import os
+
+RED = (255, 0, 0)
+GREEN = (0, 255, 0)
+BLUE = (0, 0, 255)
+HOTPINK = (244, 66, 182)
+GREY = (73, 73, 73)
+LIGHTGREY = (160, 160, 160)
+YELLOW = (255, 251, 35)
+LIGHTBLUE = (66, 134, 244)
+FUCHSIA = (255, 0, 255)
+PURPLE = (128, 0, 128)
+FLOURESCENTGREEN = (63, 255, 0)
+WHITE = (255, 255, 255)
+BLACK = (0, 0, 0)
+BIGRED = (206, 16, 16)
+
+def sixXsix():
+    screen.fill(BLUE)
+    while True:
+
+        pygame.draw.rect(screen, WHITE, [475, 200, 240, 240])
+        
+
+        pygame.display.update()
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+
+
+if __name__ == '__main__':
+    running = True
+    pygame.init()
+    screen = pygame.display.set_mode((1200, 650))
+    screen_rect = screen.get_rect()
+    clock = pygame.time.Clock()
+    timer = 0
+    bg = (random.randint(100, 220), random.randint(100, 220), random.randint(100, 220) != (0, 0, 0) != (255, 255, 255))
+
+
+    font = pygame.font.SysFont("comicsansms", 35)
+
+    rectx = 475
+    recty = 250
+    rectchangex = 5
+    rectchangey = 5
+    pygame.draw.rect(screen, BLACK, [rectx, recty, 250, 151], 2)  # selection screen
+    pygame.display.set_caption("Mine Sweeper Feat. Kim Jong Un")
+
+
+while running:
+    sixXsix()
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.quit()
+            sys.exit()
+
+    if pygame.time.get_ticks() - timer > 300:  # change the number value to change how long a color lasts on the page
+        timer = pygame.time.get_ticks()
+        bg = (
+        random.randint(100, 220), random.randint(100, 220), random.randint(100, 220) != (0, 0, 0) != (255, 255, 255))
+    pygame.display.update()
+    clock.tick(60)  # fps (60 is fine but could be reduced if lagging because minesweeper doesn't really refresh a lot
