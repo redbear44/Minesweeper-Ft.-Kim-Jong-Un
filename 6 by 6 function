@@ -18,9 +18,42 @@ WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 BIGRED = (206, 16, 16)
 
+def Field():
+
+   # creates blank FIELDWIDTH x FIELDHEIGHT data structure
+
+    field = []
+    for x in range(FIELDWIDTH):
+        field.append([])
+        for y in range(FIELDHEIGHT):
+            field[x].append('[ ]')
+    return
+
+def drawField():
+
+    # draws field GUI and reset button
+
+    for box_x in range(fieldWidth):
+        for box_y in range(fieldHeight):
+            left, top = getLeftTopXY(box_x, box_y)
+            pygame.draw.rect(screen, BLUE, (left, top, boxSize, boxSize))
+
+    screen.blit(RESET_SURF, RESET_RECT)
+    screen.blit(SHOW_SURF, SHOW_RECT)
+
+def getTopAndLeftXY(box_x, box_y):
+
+    # get left & top coordinates for drawing mine boxes
+
+    left = XMARGIN + box_x*(BOXSIZE+GAPSIZE)
+    top = YMARGIN + box_y*(BOXSIZE+GAPSIZE)
+    return left, top
+
 def sixXsix():
     screen.fill(BLUE)
     while True:
+        mouseClicked = False
+        spacePressed = False
 
         pygame.draw.rect(screen, WHITE, [475, 200, 240, 240])
         
