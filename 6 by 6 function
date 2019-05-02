@@ -18,14 +18,19 @@ WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 BIGRED = (206, 16, 16)
 
-def Field():
+windowWidth = 1200
+windowHeight = 650
+xMargin = int((windowWidth- (fieldWidth*(boxSize + gapSize))))
+yMargin = xMargin
+minesTotal = int()
+def field():
 
    # creates blank FIELDWIDTH x FIELDHEIGHT data structure
 
     field = []
-    for x in range(FIELDWIDTH):
+    for x in range(fieldWidth):
         field.append([])
-        for y in range(FIELDHEIGHT):
+        for y in range(fieldHeight):
             field[x].append('[ ]')
     return
 
@@ -35,13 +40,13 @@ def drawField():
 
     for box_x in range(fieldWidth):
         for box_y in range(fieldHeight):
-            left, top = getLeftTopXY(box_x, box_y)
+            left, top = getLeftAndTopXY(box_x, box_y)
             pygame.draw.rect(screen, BLUE, (left, top, boxSize, boxSize))
 
     screen.blit(RESET_SURF, RESET_RECT)
     screen.blit(SHOW_SURF, SHOW_RECT)
 
-def getTopAndLeftXY(box_x, box_y):
+def getLeftAndTopXY(box_x, box_y):
 
     # get left & top coordinates for drawing mine boxes
 
