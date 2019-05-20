@@ -1,0 +1,57 @@
+def victoryscreen():
+    onVicotry = True
+    while onVicotry:
+        screen.fill(YELLOW)
+        screen.blit(kimclap, (100,100))
+        text = font.render("I have been defeated :(", True, BLACK)
+        screen.blit(text, (1085 - text.get_width(), 249 - text.get_height()))
+        text = font.render("Next", True, BLACK)
+        screen.blit(text, (85 - text.get_width(), 649 - text.get_height()))
+        mouse = pygame.mouse.get_pos()
+        click = pygame.mouse.get_pressed()
+        if 0 + 100 > mouse[0] > 0 and 600 + 50 > mouse[1] > 600:
+            pygame.draw.rect(screen, GREEN, (0, 600, 100, 50))
+            text = font.render("Next", True, BLACK)
+            screen.blit(text, (85 - text.get_width(), 649 - text.get_height()))
+            if click[0] == 1:
+                onVicotry = False
+                clicksound.play()
+                mainScreen()
+        pygame.display.update()
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+
+
+
+def deathscreen():
+    onDeath = True
+    while onDeath:
+        screen.fill(BIGRED)
+        bombsound.play()
+        screen.blit(KimSerious, (75,100))
+        screen.blit(redButton, (900,65))
+        screen.blit(finger, (1005,300))
+        screen.blit(smallbomb, (220,20))
+        text = font.render("Press back to restart", True, BLACK)
+        screen.blit(text, (800 - text.get_width(), 649 - text.get_height()))
+        text = font.render("GeT nUkEd By KiM jOgN uN", True, BLACK)
+        screen.blit(text, (850 - text.get_width(), 600 - text.get_height()))
+        text = font.render("Back", True, BLACK)
+        screen.blit(text, (85 - text.get_width(), 649 - text.get_height()))
+        mouse = pygame.mouse.get_pos()
+        click = pygame.mouse.get_pressed()
+        if 0 + 100 > mouse[0] > 0 and 600 + 50 > mouse[1] > 600:
+            pygame.draw.rect(screen, GREEN, (0, 600, 100, 50))
+            text = font.render("Back", True, BLACK)
+            screen.blit(text, (85 - text.get_width(), 649 - text.get_height()))
+            if click[0] == 1:
+                onDeath = False
+                clicksound.play()
+                mainScreen()
+        pygame.display.update()
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
