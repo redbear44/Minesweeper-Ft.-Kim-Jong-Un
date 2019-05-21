@@ -1,0 +1,100 @@
+def LevelOneFirstLine():
+    onOne = True
+    while onOne:
+        screen.fill(WHITE)
+        screen.blit(bricks, (0,0))
+        pygame.draw.rect(screen, WHITE, (300,450,600,200))
+        font2 = pygame.font.SysFont("comicsansms", 20)
+        text = font2.render("You are sick of Kim Jogn Un's rule and you decide to make", True, BLACK)
+        screen.blit(text, (865 - text.get_width(), 500 - text.get_height()))
+        text = font2.render("an escape. You make your way from your house in Northern", True, BLACK)
+        screen.blit(text, (864 - text.get_width(), 540 - text.get_height()))
+        text = font2.render("North Korea to the Myohyangsan Mountains to take refuge.", True, BLACK)
+        screen.blit(text, (870 - text.get_width(), 580 - text.get_height()))
+        text = font2.render("As you are driving south, you encounter a minefield!", True, BLACK)
+        screen.blit(text, (820 - text.get_width(), 620 - text.get_height()))
+        mouse = pygame.mouse.get_pos()
+        click = pygame.mouse.get_pressed()
+        text = font.render("Next", True, BLACK)
+        screen.blit(text, (85 - text.get_width(), 649 - text.get_height()))
+        if 0 + 100 > mouse[0] > 0 and 600 + 50 > mouse[1] > 600:
+            pygame.draw.rect(screen, GREEN, (0, 600, 100, 50))
+            text = font.render("Next", True, BLACK)
+            screen.blit(text, (85 - text.get_width(), 649 - text.get_height()))
+            if click[0] == 1:
+                onOne = False
+                clicksound.play()
+                mainScreen()
+        pygame.display.update()
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+
+def LevelTwoFirstLine():
+    onTwo = True
+    while onTwo:
+        screen.fill(WHITE)
+        screen.blit(bricks, (0, 0))
+        pygame.draw.rect(screen, WHITE, (300, 450, 600, 200))
+        font2 = pygame.font.SysFont("comicsansms", 20)
+        text = font2.render("You evade the minefield however, now there is a roadblock", True, BLACK)
+        screen.blit(text, (865 - text.get_width(), 500 - text.get_height()))
+        text = font2.render("blocking your way. You are forced to run through a forest", True, BLACK)
+        screen.blit(text, (864 - text.get_width(), 540 - text.get_height()))
+        text = font2.render("to avoid being caught by the ruthless North Korean Military.", True, BLACK)
+        screen.blit(text, (870 - text.get_width(), 580 - text.get_height()))
+        text = font2.render("Avoid all of the wild animals and army members hunting you!", True, BLACK)
+        screen.blit(text, (875 - text.get_width(), 620 - text.get_height()))
+        mouse = pygame.mouse.get_pos()
+        click = pygame.mouse.get_pressed()
+        text = font.render("Next", True, BLACK)
+        screen.blit(text, (85 - text.get_width(), 649 - text.get_height()))
+        if 0 + 100 > mouse[0] > 0 and 600 + 50 > mouse[1] > 600:
+            pygame.draw.rect(screen, GREEN, (0, 600, 100, 50))
+            text = font.render("Next", True, BLACK)
+            screen.blit(text, (85 - text.get_width(), 649 - text.get_height()))
+            if click[0] == 1:
+                onTwo = False
+                clicksound.play()
+                mainScreen()
+        pygame.display.update()
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+
+
+
+def LevelThreeFirstLine():
+    onThree = True
+    while onThree:
+        screen.fill(WHITE)
+        screen.blit(bricks, (0,0))
+        pygame.draw.rect(screen, WHITE, (300, 450, 600, 200))
+        font2 = pygame.font.SysFont("comicsansms", 20)
+        text = font2.render("You manage to make your way through the forest with many", True, BLACK)
+        screen.blit(text, (865 - text.get_width(), 500 - text.get_height()))
+        text = font2.render("close calls! As you approach the DMZ, you prepare to sprint", True, BLACK)
+        screen.blit(text, (864 - text.get_width(), 540 - text.get_height()))
+        text = font2.render("to the other side. There are many guards prepared to shoot", True, BLACK)
+        screen.blit(text, (870 - text.get_width(), 580 - text.get_height()))
+        text = font2.render("RUN!!!!!", True, BLACK)
+        screen.blit(text, (630 - text.get_width(), 620 - text.get_height()))
+        mouse = pygame.mouse.get_pos()
+        click = pygame.mouse.get_pressed()
+        text = font.render("Next", True, BLACK)
+        screen.blit(text, (85 - text.get_width(), 649 - text.get_height()))
+        if 0 + 100 > mouse[0] > 0 and 600 + 50 > mouse[1] > 600:
+            pygame.draw.rect(screen, GREEN, (0, 600, 100, 50))
+            text = font.render("Next", True, BLACK)
+            screen.blit(text, (85 - text.get_width(), 649 - text.get_height()))
+            if click[0] == 1:
+                onThree = False
+                clicksound.play()
+                mainScreen()
+        pygame.display.update()
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
