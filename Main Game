@@ -19,15 +19,7 @@ windowWidth = 1200
 windowHeight = 650
 boxSize = 25
 gapSize = 5
-fieldWidth = 30
-fieldHeight = 16
-marginX = int((windowWidth - (fieldWidth * (boxSize + gapSize))) / 2)
-marginY = int((windowHeight - (fieldHeight * (boxSize + gapSize))) /2)
-minesTotal = 60
 
-# assertions
-assert minesTotal < fieldHeight * fieldWidth, 'More mines than boxes'
-assert boxSize / 2 > 5, 'Bounding errors when drawing rectangle, cannot use half-5 in drawMinesNumbers'
 
 # assign colors
 LIGHTGRAY = (225, 225, 225)
@@ -71,12 +63,13 @@ def mainScreen():
         if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
-
+            
+    timer = 0
     if pygame.time.get_ticks() - timer > 300:  # change the number value to change how long a color lasts on the page
         timer = pygame.time.get_ticks()
         bg = (random.randint(100, 220), random.randint(100, 220), random.randint(100, 220) != (0, 0, 0) != (255, 255, 255))
     pygame.display.update()
-    clock.tick(60)  # fps (60 is fine but could be reduced if lagging because minesweeper doesn't really refresh a lot
+    clock.tick(30)  # fps (30 is fine but could be reduced if lagging because minesweeper doesn't really refresh a lot
     screen.fill(bg)
     rectx = 5
     recty = 11
@@ -85,9 +78,9 @@ def mainScreen():
     mouse = pygame.mouse.get_pos()
     click = pygame.mouse.get_pressed()
     pygame.draw.rect(screen, BLACK, [rectx, recty, 250, 159], 2)  # selection screen
-    pygame.draw.rect(screen, LIGHTGREY, [35, 20, 185, 44], 0)  # new game
-    pygame.draw.rect(screen, LIGHTGREY, [40, 70, 175, 44], 0)  # creators
-    pygame.draw.rect(screen, LIGHTGREY, [80, 119, 97, 44], 0)  # Quit
+    pygame.draw.rect(screen, LIGHTGRAY, [35, 20, 185, 44], 0)  # new game
+    pygame.draw.rect(screen, LIGHTGRAY, [40, 70, 175, 44], 0)  # creators
+    pygame.draw.rect(screen, LIGHTGRAY, [80, 119, 97, 44], 0)  # Quit
 
     if 80 + 97 > mouse[0] > 80 and 119 + 44 > mouse[1] > 119:  # QUIT button
         pygame.draw.rect(screen, WHITE, (80, 119, 97, 44))
@@ -180,7 +173,7 @@ def newgame():
             pygame.draw.rect(screen, WHITE, (1023, 473, 89, 37))
             if click[0] == 1:
                 clicksound.play()
-                deathscreen()
+                sixXsix()
 
         if 1023 + 88 > mouse[0] > 1023 and 514 + 36 > mouse[1] > 514:  # 9x9
             pygame.draw.rect(screen, WHITE, (1023, 514, 89, 37))
@@ -283,18 +276,18 @@ def deathScreen():
 def LevelOneFirstLine():
     onOne = True
     while onOne:
-        screen.fill(WHITE)
+        screen.fill(RED)
         screen.blit(bricks, (0,0))
         pygame.draw.rect(screen, WHITE, (300,450,600,200))
         font2 = pygame.font.SysFont("comicsansms", 20)
-        text = font2.render("You are sick of Kim Jogn Un's rule and you decide to make", True, BLACK)
-        screen.blit(text, (865 - text.get_width(), 500 - text.get_height()))
+        text = font2.render("You are sick of Kim Jong Un's rule and you decide to make", True, BLACK)
+        screen.blit(text, (875 - text.get_width(), 500 - text.get_height()))
         text = font2.render("an escape. You make your way from your house in Northern", True, BLACK)
         screen.blit(text, (864 - text.get_width(), 540 - text.get_height()))
-        text = font2.render("North Korea to the Myohyangsan Mountains to take refuge.", True, BLACK)
+        text = font2.render("North Korea to the KumKangSan Mountains to take refuge.", True, BLACK)
         screen.blit(text, (870 - text.get_width(), 580 - text.get_height()))
-        text = font2.render("As you are driving south, you encounter a minefield!", True, BLACK)
-        screen.blit(text, (820 - text.get_width(), 620 - text.get_height()))
+        text = font2.render("As you're riding your cow south, you encounter a minefield!", True, BLACK)
+        screen.blit(text, (855- text.get_width(), 620 - text.get_height()))
         mouse = pygame.mouse.get_pos()
         click = pygame.mouse.get_pressed()
         text = font.render("Next", True, BLACK)
@@ -306,7 +299,7 @@ def LevelOneFirstLine():
             if click[0] == 1:
                 onOne = False
                 clicksound.play()
-                mainScreen()
+                sixgame()
         pygame.display.update()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -316,7 +309,7 @@ def LevelOneFirstLine():
 def LevelTwoFirstLine():
     onTwo = True
     while onTwo:
-        screen.fill(WHITE)
+        screen.fill(RED)
         screen.blit(bricks, (0, 0))
         pygame.draw.rect(screen, WHITE, (300, 450, 600, 200))
         font2 = pygame.font.SysFont("comicsansms", 20)
@@ -326,7 +319,7 @@ def LevelTwoFirstLine():
         screen.blit(text, (864 - text.get_width(), 540 - text.get_height()))
         text = font2.render("to avoid being caught by the ruthless North Korean Military.", True, BLACK)
         screen.blit(text, (870 - text.get_width(), 580 - text.get_height()))
-        text = font2.render("Avoid all of the wild animals and army members hunting you!", True, BLACK)
+        text = font2.render("Avoid all of the nuke mines that the North Koreans planted!", True, BLACK)
         screen.blit(text, (875 - text.get_width(), 620 - text.get_height()))
         mouse = pygame.mouse.get_pos()
         click = pygame.mouse.get_pressed()
@@ -339,7 +332,7 @@ def LevelTwoFirstLine():
             if click[0] == 1:
                 onTwo = False
                 clicksound.play()
-                mainScreen()
+                ninegame()
         pygame.display.update()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -349,7 +342,7 @@ def LevelTwoFirstLine():
 def LevelThreeFirstLine():
     onThree = True
     while onThree:
-        screen.fill(WHITE)
+        screen.fill(RED)
         screen.blit(bricks, (0,0))
         pygame.draw.rect(screen, WHITE, (300, 450, 600, 200))
         font2 = pygame.font.SysFont("comicsansms", 20)
@@ -372,7 +365,40 @@ def LevelThreeFirstLine():
             if click[0] == 1:
                 onThree = False
                 clicksound.play()
-                mainScreen()
+                sixteengame()
+        pygame.display.update()
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+
+def LevelFourFirstLine():
+    onFour = True
+    while onFour:
+        screen.fill(RED)
+        screen.blit(bricks, (0,0))
+        pygame.draw.rect(screen, WHITE, (300, 450, 600, 200))
+        font2 = pygame.font.SysFont("comicsansms", 20)
+        text = font2.render("You managed to arrive at the South Korean side of the DMZ", True, BLACK)
+        screen.blit(text, (865 - text.get_width(), 500 - text.get_height()))
+        text = font2.render("but the South Koreans also adopted the Nuke Mine technology", True, BLACK)
+        screen.blit(text, (864 - text.get_width(), 540 - text.get_height()))
+        text = font2.render("you prepare for the last sprint, which will get you safely to South Korea", True, BLACK)
+        screen.blit(text, (870 - text.get_width(), 580 - text.get_height()))
+        text = font2.render("RUN!!!!!", True, BLACK)
+        screen.blit(text, (630 - text.get_width(), 620 - text.get_height()))
+        mouse = pygame.mouse.get_pos()
+        click = pygame.mouse.get_pressed()
+        text = font.render("Next", True, BLACK)
+        screen.blit(text, (85 - text.get_width(), 649 - text.get_height()))
+        if 0 + 100 > mouse[0] > 0 and 600 + 50 > mouse[1] > 600:
+            pygame.draw.rect(screen, GREEN, (0, 600, 100, 50))
+            text = font.render("Next", True, BLACK)
+            screen.blit(text, (85 - text.get_width(), 649 - text.get_height()))
+            if click[0] == 1:
+                onFour = False
+                clicksound.play()
+                lastgame()
         pygame.display.update()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -383,35 +409,251 @@ def sixXsix(): # six by six level function
     fieldHeight = 6
     fieldWidth = 6
     minesTotal = 10
-    game()
+    LevelOneFirstLine()
 
 def nineXnine(): # nine by nine level function
     fieldHeight = 9
     fieldWidth = 9
     minesTotal = 10
-    game()
+    LevelTwoFirstLine()
 
 
 def sixteenXsixteen(): # sixteen by sixteen level function
     fieldHeight = 16
     fieldWidth = 16
     minesTotal = 50
-    game()
+    LevelThreeFirstLine()
 
 def thirtyXsixteen(): # thirty by sixteen level function
     fieldHeight = 16
     fieldWidth = 30
     minesTotal = 100
-    game()
+    LevelFourFirstLine()
 
-def game():
+def sixgame():
     # initialize global variables & pygame module, set caption
-    global FPSCLOCK, screen, BASICFONT
+    global FPSCLOCK, screen, BASICFONT, fieldWidth, fieldHeight, marginX, marginY, minesTotal
     pygame.init()
     pygame.display.set_caption('Minesweeper')
     FPSCLOCK = pygame.time.Clock()
     screen = pygame.display.set_mode((windowWidth, windowHeight))
     BASICFONT = pygame.font.SysFont(FONTTYPE, FONTSIZE)
+    fieldWidth = 6
+    fieldHeight = 6
+    marginX = int((windowWidth - (fieldWidth * (boxSize + gapSize))) / 2)
+    marginY = int((windowHeight - (fieldHeight * (boxSize + gapSize))) /2)
+    minesTotal = 8
+
+    # stores XY of mouse events
+    mouse_x = 0
+    mouse_y = 0
+
+    # set up data structures and lists
+    mineField, zeroListXY, revealedBoxes, markedMines = gameSetup()
+
+    # set background color
+    screen.fill(BGCOLOR)
+
+    # main game loop
+    while True:
+
+        # check for quit function
+        checkForKeyPress()
+
+        # initialize input booleans
+        mouseClicked = False
+        spacePressed = False
+
+        # draw field
+        screen.fill(BGCOLOR)
+        pygame.draw.rect(screen, FIELDCOLOR, (marginX - 5, marginY - 5, (boxSize + gapSize) * fieldWidth + 5, (boxSize + gapSize) * fieldHeight + 5))
+        drawField()
+        drawMinesNumbers(mineField)
+
+        # event handling loop
+        for event in pygame.event.get():
+            if event.type == QUIT or (event.type == KEYUP and event.key == K_ESCAPE):
+                terminate()
+            elif event.type == MOUSEMOTION:
+                mouse_x, mouse_y = event.pos
+            elif event.type == MOUSEBUTTONDOWN:
+                mouse_x, mouse_y = event.pos
+                mouseClicked = True
+            elif event.type == KEYDOWN:
+                if event.key == K_SPACE:
+                    spacePressed = True
+            elif event.type == KEYUP:
+                if event.key == K_SPACE:
+                    spacePressed = False
+
+        # draw covers
+        drawCovers(revealedBoxes, markedMines)
+
+        # mine marker tip
+        tipFont = pygame.font.SysFont(FONTTYPE, 16)  ## not using BASICFONT - too big
+        drawText('Tip: Highlight a box and press space', tipFont, TEXTCOLOR_3, screen,
+                 windowWidth / 2, windowHeight - 60)
+        drawText('to mark areas that you think contain nukes.', tipFont, TEXTCOLOR_3, screen, windowWidth / 2,
+                 windowHeight - 40)
+
+        # determine boxes at clicked areas
+        box_x, box_y = getBoxAtPixel(mouse_x, mouse_y)
+
+        # mouse not over a box in field
+        if (box_x, box_y) == (None, None):
+
+            pass
+
+        # mouse currently over box in field
+        else:
+
+            # highlight unrevealed box
+            if not revealedBoxes[box_x][box_y]:
+                highlightBox(box_x, box_y)
+
+                # mark mines
+                if spacePressed:
+                    markedMines.append([box_x, box_y])
+
+                # reveal clicked boxes
+                if mouseClicked:
+                    revealedBoxes[box_x][box_y] = True
+
+                    # when 0 is revealed, show relevant boxes
+                    if mineField[box_x][box_y] == '[0]':
+                        showNumbers(revealedBoxes, mineField, box_x, box_y, zeroListXY)
+
+                    # when mine is revealed, show mines
+                    if mineField[box_x][box_y] == '[X]':
+                        deathscreen()
+        # check if player has won
+        if gameWon(revealedBoxes, mineField):
+            victoryscreen()
+
+        # redraw screen, wait clock tick
+        pygame.display.update()
+        FPSCLOCK.tick(FPS)
+
+def ninegame():
+    # initialize global variables & pygame module, set caption
+    global FPSCLOCK, screen, BASICFONT, fieldWidth, fieldHeight, marginX, marginY, minesTotal
+    pygame.init()
+    pygame.display.set_caption('Minesweeper')
+    FPSCLOCK = pygame.time.Clock()
+    screen = pygame.display.set_mode((windowWidth, windowHeight))
+    BASICFONT = pygame.font.SysFont(FONTTYPE, FONTSIZE)
+
+    # stores XY of mouse events
+    mouse_x = 0
+    mouse_y = 0
+
+    fieldWidth = 9
+    fieldHeight = 9
+    marginX = int((windowWidth - (fieldWidth * (boxSize + gapSize))) / 2)
+    marginY = int((windowHeight - (fieldHeight * (boxSize + gapSize))) /2)
+    minesTotal = 20
+
+    # set up data structures and lists
+    mineField, zeroListXY, revealedBoxes, markedMines = gameSetup()
+
+    # set background color
+    screen.fill(BGCOLOR)
+
+    # main game loop
+    while True:
+
+        # check for quit function
+        checkForKeyPress()
+
+        # initialize input booleans
+        mouseClicked = False
+        spacePressed = False
+
+        # draw field
+        screen.fill(BGCOLOR)
+        pygame.draw.rect(screen, FIELDCOLOR, (marginX - 5, marginY - 5, (boxSize + gapSize) * fieldWidth + 5, (boxSize + gapSize) * fieldHeight + 5))
+        drawField()
+        drawMinesNumbers(mineField)
+
+        # event handling loop
+        for event in pygame.event.get():
+            if event.type == QUIT or (event.type == KEYUP and event.key == K_ESCAPE):
+                terminate()
+            elif event.type == MOUSEMOTION:
+                mouse_x, mouse_y = event.pos
+            elif event.type == MOUSEBUTTONDOWN:
+                mouse_x, mouse_y = event.pos
+                mouseClicked = True
+            elif event.type == KEYDOWN:
+                if event.key == K_SPACE:
+                    spacePressed = True
+            elif event.type == KEYUP:
+                if event.key == K_SPACE:
+                    spacePressed = False
+
+        # draw covers
+        drawCovers(revealedBoxes, markedMines)
+
+        # mine marker tip
+        tipFont = pygame.font.SysFont(FONTTYPE, 16)  ## not using BASICFONT - too big
+        drawText('Tip: Highlight a box and press space (rather than click the mouse)', tipFont, TEXTCOLOR_3, screen,
+                 windowWidth / 2, windowHeight - 60)
+        drawText('to mark areas that you think contain mines.', tipFont, TEXTCOLOR_3, screen, windowWidth / 2,
+                 windowHeight - 40)
+
+        # determine boxes at clicked areas
+        box_x, box_y = getBoxAtPixel(mouse_x, mouse_y)
+
+        # mouse not over a box in field
+        if (box_x, box_y) == (None, None):
+
+            pass
+
+        # mouse currently over box in field
+        else:
+
+            # highlight unrevealed box
+            if not revealedBoxes[box_x][box_y]:
+                highlightBox(box_x, box_y)
+
+                # mark mines
+                if spacePressed:
+                    markedMines.append([box_x, box_y])
+
+                # reveal clicked boxes
+                if mouseClicked:
+                    revealedBoxes[box_x][box_y] = True
+
+                    # when 0 is revealed, show relevant boxes
+                    if mineField[box_x][box_y] == '[0]':
+                        showNumbers(revealedBoxes, mineField, box_x, box_y, zeroListXY)
+
+                    # when mine is revealed, show mines
+                    if mineField[box_x][box_y] == '[X]':
+                        deathscreen()
+        # check if player has won
+        if gameWon(revealedBoxes, mineField):
+            victoryscreen()
+
+        # redraw screen, wait clock tick
+        pygame.display.update()
+        FPSCLOCK.tick(FPS)
+
+def sixteengame():
+    # initialize global variables & pygame module, set caption
+    global FPSCLOCK, screen, BASICFONT, fieldWidth, fieldHeight, marginX, marginY, minesTotal
+    pygame.init()
+    pygame.display.set_caption('Minesweeper')
+    FPSCLOCK = pygame.time.Clock()
+    screen = pygame.display.set_mode((windowWidth, windowHeight))
+    BASICFONT = pygame.font.SysFont(FONTTYPE, FONTSIZE)
+
+    fieldWidth = 16
+    fieldHeight = 16
+    marginX = int((windowWidth - (fieldWidth * (boxSize + gapSize))) / 2)
+    marginY = int((windowHeight - (fieldHeight * (boxSize + gapSize))) /2)
+    minesTotal = 40
+
 
     # stores XY of mouse events
     mouse_x = 0
@@ -494,20 +736,120 @@ def game():
 
                     # when mine is revealed, show mines
                     if mineField[box_x][box_y] == '[X]':
-                        showMines(revealedBoxes, mineField, box_x, box_y)
-                        gameOverAnimation(mineField, revealedBoxes, markedMines, 'LOSS')
-                        mineField, zeroListXY, revealedBoxes, markedMines = gameSetup()
-
+                        deathscreen()
         # check if player has won
         if gameWon(revealedBoxes, mineField):
-            gameOverAnimation(mineField, revealedBoxes, markedMines, 'WIN')
-            mineField, zeroListXY, revealedBoxes, markedMines = gameSetup()
+            victoryscreen()
 
         # redraw screen, wait clock tick
         pygame.display.update()
         FPSCLOCK.tick(FPS)
 
+def lastgame():
+    # initialize global variables & pygame module, set caption
+    global FPSCLOCK, screen, BASICFONT, fieldWidth, fieldHeight, marginX, marginY, minesTotal
+    pygame.init()
+    pygame.display.set_caption('Minesweeper')
+    FPSCLOCK = pygame.time.Clock()
+    screen = pygame.display.set_mode((windowWidth, windowHeight))
+    BASICFONT = pygame.font.SysFont(FONTTYPE, FONTSIZE)
 
+    fieldWidth = 30
+    fieldHeight = 16
+    marginX = int((windowWidth - (fieldWidth * (boxSize + gapSize))) / 2)
+    marginY = int((windowHeight - (fieldHeight * (boxSize + gapSize))) /2)
+    minesTotal = 60
+
+
+    # stores XY of mouse events
+    mouse_x = 0
+    mouse_y = 0
+
+    # set up data structures and lists
+    mineField, zeroListXY, revealedBoxes, markedMines = gameSetup()
+
+    # set background color
+    screen.fill(BGCOLOR)
+
+    # main game loop
+    while True:
+
+        # check for quit function
+        checkForKeyPress()
+
+        # initialize input booleans
+        mouseClicked = False
+        spacePressed = False
+
+        # draw field
+        screen.fill(BGCOLOR)
+        pygame.draw.rect(screen, FIELDCOLOR, (marginX - 5, marginY - 5, (boxSize + gapSize) * fieldWidth + 5, (boxSize + gapSize) * fieldHeight + 5))
+        drawField()
+        drawMinesNumbers(mineField)
+
+        # event handling loop
+        for event in pygame.event.get():
+            if event.type == QUIT or (event.type == KEYUP and event.key == K_ESCAPE):
+                terminate()
+            elif event.type == MOUSEMOTION:
+                mouse_x, mouse_y = event.pos
+            elif event.type == MOUSEBUTTONDOWN:
+                mouse_x, mouse_y = event.pos
+                mouseClicked = True
+            elif event.type == KEYDOWN:
+                if event.key == K_SPACE:
+                    spacePressed = True
+            elif event.type == KEYUP:
+                if event.key == K_SPACE:
+                    spacePressed = False
+
+        # draw covers
+        drawCovers(revealedBoxes, markedMines)
+
+        # mine marker tip
+        tipFont = pygame.font.SysFont(FONTTYPE, 16)  ## not using BASICFONT - too big
+        drawText('Tip: Highlight a box and press space (rather than click the mouse)', tipFont, TEXTCOLOR_3, screen,
+                 windowWidth / 2, windowHeight - 60)
+        drawText('to mark areas that you think contain mines.', tipFont, TEXTCOLOR_3, screen, windowWidth / 2,
+                 windowHeight - 40)
+
+        # determine boxes at clicked areas
+        box_x, box_y = getBoxAtPixel(mouse_x, mouse_y)
+
+        # mouse not over a box in field
+        if (box_x, box_y) == (None, None):
+
+            pass
+
+        # mouse currently over box in field
+        else:
+
+            # highlight unrevealed box
+            if not revealedBoxes[box_x][box_y]:
+                highlightBox(box_x, box_y)
+
+                # mark mines
+                if spacePressed:
+                    markedMines.append([box_x, box_y])
+
+                # reveal clicked boxes
+                if mouseClicked:
+                    revealedBoxes[box_x][box_y] = True
+
+                    # when 0 is revealed, show relevant boxes
+                    if mineField[box_x][box_y] == '[0]':
+                        showNumbers(revealedBoxes, mineField, box_x, box_y, zeroListXY)
+
+                    # when mine is revealed, show mines
+                    if mineField[box_x][box_y] == '[X]':
+                        deathscreen()
+        # check if player has won
+        if gameWon(revealedBoxes, mineField):
+            victoryscreen()
+
+        # redraw screen, wait clock tick
+        pygame.display.update()
+        FPSCLOCK.tick(FPS)
 def blankField():
     # creates blank fieldWidth x fieldHeight data structure
 
@@ -805,44 +1147,6 @@ def gameWon(revealedBoxes, mineField):
         return False
 
 
-def gameOverAnimation(mineField, revealedBoxes, markedMines, result):
-    # makes background flash red (loss) or blue (win)
-
-    origSurf = screen.copy()
-    flashSurf = pygame.Surface(screen.get_size())
-    flashSurf = flashSurf.convert_alpha()
-    animationSpeed = 20
-
-    if result == 'WIN':
-        r, g, b = BLUE
-    else:
-        r, g, b = RED
-
-    for i in range(5):
-        for start, end, step in ((0, 255, 1), (255, 0, -1)):
-            for alpha in range(start, end, animationSpeed * step):  # animation loop
-                checkForKeyPress()
-                flashSurf.fill((r, g, b, alpha))
-                screen.blit(origSurf, (0, 0))
-                screen.blit(flashSurf, (0, 0))
-                pygame.draw.rect(screen, FIELDCOLOR, (
-                marginX - 5, marginY - 5, (boxSize + gapSize) * fieldWidth + 5, (boxSize + gapSize) * fieldHeight + 5))
-                drawField()
-                drawMinesNumbers(mineField)
-                tipFont = pygame.font.SysFont(FONTTYPE, 16)  ## not using BASICFONT - too big
-                drawText('Tip: Highlight a box and press space (rather than click the mouse)', tipFont, TEXTCOLOR_3,
-                         screen, windowWidth / 2, windowHeight - 60)
-                drawText('to mark areas that you think contain mines.', tipFont, TEXTCOLOR_3, screen, windowWidth / 2,
-                         windowHeight - 40)
-                RESET_SURF, RESET_RECT = drawButton('RESET', TEXTCOLOR_3, RESETBGCOLOR, windowWidth / 2,
-                                                    windowHeight - 120)
-                SHOW_SURF, SHOW_RECT = drawButton('SHOW ALL', TEXTCOLOR_3, RESETBGCOLOR, windowWidth / 2,
-                                                  windowHeight - 95)
-                drawCovers(revealedBoxes, markedMines)
-                pygame.display.update()
-                FPSCLOCK.tick(FPS)
-
-
 def terminate():
     # simple function to exit game
 
@@ -863,6 +1167,64 @@ def checkForKeyPress():
         terminate()
     return keyUpEvents[0].key
 
+def victoryscreen():
+    onVicotry = True
+    while onVicotry:
+        screen.fill(YELLOW)
+        screen.blit(kimclap, (100,100))
+        text = font.render("I have been defeated :(", True, BLACK)
+        screen.blit(text, (1085 - text.get_width(), 249 - text.get_height()))
+        text = font.render("Next", True, BLACK)
+        screen.blit(text, (85 - text.get_width(), 649 - text.get_height()))
+        mouse = pygame.mouse.get_pos()
+        click = pygame.mouse.get_pressed()
+        if 0 + 100 > mouse[0] > 0 and 600 + 50 > mouse[1] > 600:
+            pygame.draw.rect(screen, GREEN, (0, 600, 100, 50))
+            text = font.render("Back", True, BLACK)
+            screen.blit(text, (85 - text.get_width(), 649 - text.get_height()))
+            if click[0] == 1:
+                onVicotry = False
+                clicksound.play()
+                newgame()
+        pygame.display.update()
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+
+
+
+def deathscreen():
+    onDeath = True
+    while onDeath:
+        screen.fill(BIGRED)
+        nukesound.play()
+        screen.blit(KimSerious, (75,100))
+        screen.blit(redButton, (900,65))
+        screen.blit(KimFinger, (1005,300))
+        screen.blit(smallbomb, (220,20))
+        text = font.render("Mission Failed, we'll get'em next time", True, BLACK)
+        screen.blit(text, (920- text.get_width(), 649 - text.get_height()))
+        text = font.render("GeT nUkEd By KiM jOgN uN", True, BLACK)
+        screen.blit(text, (850 - text.get_width(), 600 - text.get_height()))
+        text = font.render("Fail", True, BLACK)
+        screen.blit(text, (85 - text.get_width(), 649 - text.get_height()))
+        mouse = pygame.mouse.get_pos()
+        click = pygame.mouse.get_pressed()
+        if 0 + 100 > mouse[0] > 0 and 600 + 50 > mouse[1] > 600:
+            pygame.draw.rect(screen, GREEN, (0, 600, 100, 50))
+            text = font.render("Fail", True, BLACK)
+            screen.blit(text, (85 - text.get_width(), 649 - text.get_height()))
+            if click[0] == 1:
+               pygame.quit()
+               sys.exit()
+        pygame.display.update()
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+
+bricks = pygame.image.load("bricks.jpg")
 funnykim = pygame.image.load("funnykim.jpg")
 KJ = pygame.image.load("KJ.png")
 bomb = pygame.image.load("bomb.png")
@@ -882,7 +1244,26 @@ KimFinger = pygame.image.load("kimfinger.jpg")
 KimSmile = pygame.image.load("kimsmile.jpg")
 KimSerious = pygame.image.load("kimserious.png")
 KimSerious = pygame.transform.scale(KimSerious, (273, 374))
+redButton = pygame.image.load("redButton.png")
+smallbomb = pygame.image.load("smallbomb.jpg")
 
 # run code
 if __name__ == '__main__':
-    main()
+    running = True
+    pygame.init()
+    screen = pygame.display.set_mode((1200, 650))
+    screen_rect = screen.get_rect()
+    clock = pygame.time.Clock()
+
+    clicksound = pygame.mixer.Sound("click.wav")
+    nukesound = pygame.mixer.Sound("nukesound.wav")
+
+    font = pygame.font.SysFont("comicsansms", 35)
+
+    rectx = 475
+    recty = 250
+    rectchangex = 5
+    rectchangey = 5
+    pygame.draw.rect(screen, BLACK, [rectx, recty, 250, 151], 2)  # selection screen
+    pygame.display.set_caption("Mine Sweeper Feat. Kim Jong Un")
+    mainScreen()
