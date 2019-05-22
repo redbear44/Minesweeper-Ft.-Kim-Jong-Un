@@ -4,12 +4,6 @@
 #Level select --> pick level 1,2,3,4,5
 #Quit --> Exit game
 
-#New Game Coordinates =
-#Level Select Coordinates =
-#Quir Coordinates =
-#//////////////////////////////////////////////////////////////////////////////////////
-
-#https://www.reddit.com/r/pygame/comments/2laqft/switching_background_colors_within_a_loop/
 import random, pygame, sys, os
 from pygame.locals import *
 
@@ -38,11 +32,12 @@ FUCHSIA = (255, 0, 255)
 PURPLE = (128, 0, 128)
 FLOURESCENTGREEN = (63, 255, 0)
 BIGRED = (206, 16, 16)
+BROWN = (139,69,19)
 
 # set up major colors
-BGCOLOR = ORANGE
+BGCOLOR = LIGHTBLUE
 FIELDCOLOR = BLACK
-BOXCOLOR_COV = DARKGRAY  # covered box color
+BOXCOLOR_COV = BROWN  # covered box color
 BOXCOLOR_REV = LIGHTGRAY  # revealed box color
 MINECOLOR = BLACK
 TEXTCOLOR_1 = BLUE
@@ -56,20 +51,20 @@ MINEMARK_COV = RED
 FONTTYPE = 'Comic Sans MS'
 FONTSIZE = 18
 
-
+# main splash screen
 def mainScreen():
   while True:
+    # event handling loop 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
-            
-    timer = 0
+    timer = 0        
     if pygame.time.get_ticks() - timer > 300:  # change the number value to change how long a color lasts on the page
         timer = pygame.time.get_ticks()
-        bg = (random.randint(100, 220), random.randint(100, 220), random.randint(100, 220) != (0, 0, 0) != (255, 255, 255))
+        bg = (random.randint(100, 220), random.randint(100, 220), random.randint(100, 220) != (0, 0, 0) != (255, 255, 255))               
     pygame.display.update()
-    clock.tick(30)  # fps (30 is fine but could be reduced if lagging because minesweeper doesn't really refresh a lot
+    clock.tick(30)  # fps (30 is fine but could be reduced if lagging because minesweeper doesn't really refresh a lot   
     screen.fill(bg)
     rectx = 5
     recty = 11
@@ -112,8 +107,6 @@ def mainScreen():
     screen.blit(text, (753 - text.get_width(), 100 - text.get_height()))
     text = font.render("Kim Jong Un", True, BLACK)
     screen.blit(text, (695 - text.get_width(), 140 - text.get_height()))
-    # text = font.render("A PC Production", True, BLACK)
-    # screen.blit(text, (727 - text.get_width(), 650 - text.get_height()))
     screen.blit(bomb, (10, 10))
     screen.blit(KJ, (5, 180))
     screen.blit(nuke, (800, 50))
@@ -122,28 +115,7 @@ def mainScreen():
     screen.blit(funnykim, (400, 150))
     pygame.display.update()
 
-def mainScreen2():
-    onMain = True
-    while onMain:
-        screen.fill(HOTPINK)
-        pygame.draw.rect(screen, WHITE, [0, 600, 100, 50], 0)
-        text = font.render("Back", True, BLACK)
-        screen.blit(text, (85 - text.get_width(), 649 - text.get_height()))
-        mouse = pygame.mouse.get_pos()
-        click = pygame.mouse.get_pressed()
-        if 0 + 100 > mouse[0] > 0 and 600 + 50 > mouse[1] > 600:
-            pygame.draw.rect(screen, GREEN, (0, 600, 100, 50))
-            text = font.render("Back", True, BLACK)
-            screen.blit(text, (85 - text.get_width(), 649 - text.get_height()))
-            if click[0] == 1:
-                onMain = False
-                mainScreen()
-        pygame.display.update()
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
-
+# level selection screen
 def newgame():
     onNew = True
     while onNew:
@@ -215,12 +187,13 @@ def newgame():
                 clicksound.play()
                 mainScreen()
         pygame.display.update()
+        # event handling loop 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
 
-
+# creators recognition page
 def creators():
     onscreen = True
     while onscreen:
@@ -245,34 +218,13 @@ def creators():
                 clicksound.play()
                 mainScreen()
         pygame.display.update()
+        # event handling loop 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
 
-def deathScreen():
-    onDeath = True
-    while onDeath:
-        screen.fill(BIGRED)
-        screen.blit(KimSerious, (100,100))
-        text = font.render("Back", True, BLACK)
-        screen.blit(text, (85 - text.get_width(), 649 - text.get_height()))
-        mouse = pygame.mouse.get_pos()
-        click = pygame.mouse.get_pressed()
-        if 0 + 100 > mouse[0] > 0 and 600 + 50 > mouse[1] > 600:
-            pygame.draw.rect(screen, GREEN, (0, 600, 100, 50))
-            text = font.render("Back", True, BLACK)
-            screen.blit(text, (85 - text.get_width(), 649 - text.get_height()))
-            if click[0] == 1:
-                onDeath = False
-                clicksound.play()
-                mainScreen()
-        pygame.display.update()
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
-
+#sets up storyline for first level
 def LevelOneFirstLine():
     onOne = True
     while onOne:
@@ -301,11 +253,13 @@ def LevelOneFirstLine():
                 clicksound.play()
                 sixgame()
         pygame.display.update()
+        # event handling loop 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
 
+# sets up storyline for second level
 def LevelTwoFirstLine():
     onTwo = True
     while onTwo:
@@ -333,12 +287,14 @@ def LevelTwoFirstLine():
                 onTwo = False
                 clicksound.play()
                 ninegame()
+                # event handling loop 
         pygame.display.update()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
 
+# sets up story line for third level
 def LevelThreeFirstLine():
     onThree = True
     while onThree:
@@ -366,12 +322,14 @@ def LevelThreeFirstLine():
                 onThree = False
                 clicksound.play()
                 sixteengame()
+        # event handling loop        
         pygame.display.update()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
 
+# sets up storyline for the final level
 def LevelFourFirstLine():
     onFour = True
     while onFour:
@@ -382,9 +340,9 @@ def LevelFourFirstLine():
         text = font2.render("You managed to arrive at the South Korean side of the DMZ", True, BLACK)
         screen.blit(text, (865 - text.get_width(), 500 - text.get_height()))
         text = font2.render("but the South Koreans also adopted the Nuke Mine technology", True, BLACK)
-        screen.blit(text, (864 - text.get_width(), 540 - text.get_height()))
-        text = font2.render("you prepare for the last sprint, which will get you safely to South Korea", True, BLACK)
-        screen.blit(text, (870 - text.get_width(), 580 - text.get_height()))
+        screen.blit(text, (900 - text.get_width(), 540 - text.get_height()))
+        text = font2.render("you prepare for the last sprint, which will ensure your safety", True, BLACK)
+        screen.blit(text, (900 - text.get_width(), 580 - text.get_height()))
         text = font2.render("RUN!!!!!", True, BLACK)
         screen.blit(text, (630 - text.get_width(), 620 - text.get_height()))
         mouse = pygame.mouse.get_pos()
@@ -406,32 +364,20 @@ def LevelFourFirstLine():
                 sys.exit()
 
 def sixXsix(): # six by six level function
-    fieldHeight = 6
-    fieldWidth = 6
-    minesTotal = 10
     LevelOneFirstLine()
 
 def nineXnine(): # nine by nine level function
-    fieldHeight = 9
-    fieldWidth = 9
-    minesTotal = 10
     LevelTwoFirstLine()
 
 
 def sixteenXsixteen(): # sixteen by sixteen level function
-    fieldHeight = 16
-    fieldWidth = 16
-    minesTotal = 50
     LevelThreeFirstLine()
 
 def thirtyXsixteen(): # thirty by sixteen level function
-    fieldHeight = 16
-    fieldWidth = 30
-    minesTotal = 100
     LevelFourFirstLine()
 
+# runs the game code for 6x6 minesweeper
 def sixgame():
-    # initialize global variables & pygame module, set caption
     global FPSCLOCK, screen, BASICFONT, fieldWidth, fieldHeight, marginX, marginY, minesTotal
     pygame.init()
     pygame.display.set_caption('Minesweeper')
@@ -442,7 +388,7 @@ def sixgame():
     fieldHeight = 6
     marginX = int((windowWidth - (fieldWidth * (boxSize + gapSize))) / 2)
     marginY = int((windowHeight - (fieldHeight * (boxSize + gapSize))) /2)
-    minesTotal = 8
+    minesTotal = 5
 
     # stores XY of mouse events
     mouse_x = 0
@@ -533,9 +479,8 @@ def sixgame():
         # redraw screen, wait clock tick
         pygame.display.update()
         FPSCLOCK.tick(FPS)
-
+# runs the game code for 9x9 minesweeper
 def ninegame():
-    # initialize global variables & pygame module, set caption
     global FPSCLOCK, screen, BASICFONT, fieldWidth, fieldHeight, marginX, marginY, minesTotal
     pygame.init()
     pygame.display.set_caption('Minesweeper')
@@ -551,7 +496,7 @@ def ninegame():
     fieldHeight = 9
     marginX = int((windowWidth - (fieldWidth * (boxSize + gapSize))) / 2)
     marginY = int((windowHeight - (fieldHeight * (boxSize + gapSize))) /2)
-    minesTotal = 20
+    minesTotal = 10
 
     # set up data structures and lists
     mineField, zeroListXY, revealedBoxes, markedMines = gameSetup()
@@ -596,7 +541,7 @@ def ninegame():
 
         # mine marker tip
         tipFont = pygame.font.SysFont(FONTTYPE, 16)  ## not using BASICFONT - too big
-        drawText('Tip: Highlight a box and press space (rather than click the mouse)', tipFont, TEXTCOLOR_3, screen,
+        drawText('Tip: Highlight a box and press space', tipFont, TEXTCOLOR_3, screen,
                  windowWidth / 2, windowHeight - 60)
         drawText('to mark areas that you think contain mines.', tipFont, TEXTCOLOR_3, screen, windowWidth / 2,
                  windowHeight - 40)
@@ -639,8 +584,8 @@ def ninegame():
         pygame.display.update()
         FPSCLOCK.tick(FPS)
 
+# runs the game code for 16x16 minesweeper
 def sixteengame():
-    # initialize global variables & pygame module, set caption
     global FPSCLOCK, screen, BASICFONT, fieldWidth, fieldHeight, marginX, marginY, minesTotal
     pygame.init()
     pygame.display.set_caption('Minesweeper')
@@ -702,7 +647,7 @@ def sixteengame():
 
         # mine marker tip
         tipFont = pygame.font.SysFont(FONTTYPE, 16)  ## not using BASICFONT - too big
-        drawText('Tip: Highlight a box and press space (rather than click the mouse)', tipFont, TEXTCOLOR_3, screen,
+        drawText('Tip: Highlight a box and press space', tipFont, TEXTCOLOR_3, screen,
                  windowWidth / 2, windowHeight - 60)
         drawText('to mark areas that you think contain mines.', tipFont, TEXTCOLOR_3, screen, windowWidth / 2,
                  windowHeight - 40)
@@ -746,7 +691,7 @@ def sixteengame():
         FPSCLOCK.tick(FPS)
 
 def lastgame():
-    # initialize global variables & pygame module, set caption
+    # runs the game code for 30x16 minesweeper
     global FPSCLOCK, screen, BASICFONT, fieldWidth, fieldHeight, marginX, marginY, minesTotal
     pygame.init()
     pygame.display.set_caption('Minesweeper')
@@ -758,7 +703,7 @@ def lastgame():
     fieldHeight = 16
     marginX = int((windowWidth - (fieldWidth * (boxSize + gapSize))) / 2)
     marginY = int((windowHeight - (fieldHeight * (boxSize + gapSize))) /2)
-    minesTotal = 60
+    minesTotal = 99
 
 
     # stores XY of mouse events
@@ -808,7 +753,7 @@ def lastgame():
 
         # mine marker tip
         tipFont = pygame.font.SysFont(FONTTYPE, 16)  ## not using BASICFONT - too big
-        drawText('Tip: Highlight a box and press space (rather than click the mouse)', tipFont, TEXTCOLOR_3, screen,
+        drawText('Tip: Highlight a box and press space', tipFont, TEXTCOLOR_3, screen,
                  windowWidth / 2, windowHeight - 60)
         drawText('to mark areas that you think contain mines.', tipFont, TEXTCOLOR_3, screen, windowWidth / 2,
                  windowHeight - 40)
@@ -845,14 +790,15 @@ def lastgame():
                         deathscreen()
         # check if player has won
         if gameWon(revealedBoxes, mineField):
-            victoryscreen()
+            finalvictoryscreen()
 
         # redraw screen, wait clock tick
         pygame.display.update()
         FPSCLOCK.tick(FPS)
-def blankField():
+    
     # creates blank fieldWidth x fieldHeight data structure
-
+def blankField():
+   
     field = []
     for x in range(fieldWidth):
         field.append([])
@@ -860,11 +806,9 @@ def blankField():
             field[x].append('[ ]')
     return field
 
-
-def placeMines(field):
     # places mines in fieldWidth x fieldHeight data structure
     # requires blank field as input
-
+def placeMines(field):
     mineCount = 0
     xy = []
     while mineCount < minesTotal:
@@ -877,16 +821,14 @@ def placeMines(field):
             field[x][y] = '[X]'
             mineCount += 1
 
-
+# checks if mine is located at specific box on field
 def isThereMine(field, x, y):
-    # checks if mine is located at specific box on field
 
     return field[x][y] == '[X]'
 
-
-def placeNumbers(field):
     # places numbers in fieldWidth x fieldHeight data structure
     # requires field with mines as input
+def placeNumbers(field):
 
     for x in range(fieldWidth):
         for y in range(fieldHeight):
@@ -918,19 +860,17 @@ def placeNumbers(field):
                         count += 1
                 field[x][y] = '[%s]' % (count)
 
-
-def blankRevealedBoxData(val):
     # returns fieldWidth x fieldHeight data structure different from the field data structure
     # each item in data structure is boolean (val) to show whether box at those fieldWidth & fieldHeight coordinates should be revealed
+def blankRevealedBoxData(val):
 
     revealedBoxes = []
     for i in range(fieldWidth):
         revealedBoxes.append([val] * fieldHeight)
     return revealedBoxes
 
-
-def gameSetup():
     # set up mine field data structure, list of all zeros for recursion, and revealed box boolean data structure
+def gameSetup():
 
     mineField = blankField()
     placeMines(mineField)
@@ -941,19 +881,17 @@ def gameSetup():
 
     return mineField, zeroListXY, revealedBoxes, markedMines
 
-
-def drawField():
     # draws field GUI and reset button
+def drawField():
 
     for box_x in range(fieldWidth):
         for box_y in range(fieldHeight):
             left, top = getLeftTopXY(box_x, box_y)
             pygame.draw.rect(screen, BOXCOLOR_REV, (left, top, boxSize, boxSize))
 
-
-def drawMinesNumbers(field):
     # draws mines and numbers onto GUI
     # field should have mines and numbers
+def drawMinesNumbers(field):
 
     half = int(boxSize * 0.5)
     quarter = int(boxSize * 0.25)
@@ -983,10 +921,9 @@ def drawMinesNumbers(field):
                             textColor = TEXTCOLOR_2
                         drawText(str(i), BASICFONT, textColor, screen, center_x, center_y)
 
-
-def showNumbers(revealedBoxes, mineField, box_x, box_y, zeroListXY):
     # modifies revealedBox data strucure if chosen box_x & box_y is [0]
     # show all boxes using recursion
+def showNumbers(revealedBoxes, mineField, box_x, box_y, zeroListXY):
 
     revealedBoxes[box_x][box_y] = True
     revealAdjacentBoxes(revealedBoxes, box_x, box_y)
@@ -995,18 +932,16 @@ def showNumbers(revealedBoxes, mineField, box_x, box_y, zeroListXY):
             zeroListXY.append([i, j])
             showNumbers(revealedBoxes, mineField, i, j, zeroListXY)
 
-
+# modifies revealedBox data strucure if chosen box_x & box_y is [X]
 def showMines(revealedBoxes, mineField, box_x, box_y):
-    # modifies revealedBox data strucure if chosen box_x & box_y is [X]
 
     for i in range(fieldWidth):
         for j in range(fieldHeight):
             if mineField[i][j] == '[X]':
                 revealedBoxes[i][j] = True
 
-
+# modifies revealedBoxes data structure so that all adjacent boxes to (box_x, box_y) are set to True
 def revealAdjacentBoxes(revealedBoxes, box_x, box_y):
-    # modifies revealedBoxes data structure so that all adjacent boxes to (box_x, box_y) are set to True
 
     if box_x != 0:
         revealedBoxes[box_x - 1][box_y] = True
@@ -1025,9 +960,8 @@ def revealAdjacentBoxes(revealedBoxes, box_x, box_y):
     if box_y != fieldHeight - 1:
         revealedBoxes[box_x][box_y + 1] = True
 
-
-def getAdjacentBoxesXY(mineField, box_x, box_y):
-    # get box XY coordinates for all adjacent boxes to (box_x, box_y)
+# get box XY coordinates for all adjacent boxes to (box_x, box_y)
+def getAdjacentBoxesXY(mineField, box_x, box_y):  
 
     adjacentBoxesXY = []
 
@@ -1050,10 +984,9 @@ def getAdjacentBoxesXY(mineField, box_x, box_y):
 
     return adjacentBoxesXY
 
-
-def drawCovers(revealedBoxes, markedMines):
     # uses revealedBox fieldWidth x fieldHeight data structure to determine whether to draw box covering mine/number
     # draw red cover instead of gray cover over marked mines
+def drawCovers(revealedBoxes, markedMines):
 
     for box_x in range(fieldWidth):
         for box_y in range(fieldHeight):
@@ -1064,19 +997,17 @@ def drawCovers(revealedBoxes, markedMines):
                 else:
                     pygame.draw.rect(screen, BOXCOLOR_COV, (left, top, boxSize, boxSize))
 
-
+# function to easily draw text and also return object & rect pair
 def drawText(text, font, color, surface, x, y):
-    # function to easily draw text and also return object & rect pair
-
+    
     textobj = font.render(text, True, color)
     textrect = textobj.get_rect()
     textrect.centerx = x
     textrect.centery = y
     surface.blit(textobj, textrect)
 
-
+# similar to drawText but text has bg color and returns obj & rect
 def drawButton(text, color, bgcolor, center_x, center_y):
-    # similar to drawText but text has bg color and returns obj & rect
 
     butSurf = BASICFONT.render(text, True, color, bgcolor)
     butRect = butSurf.get_rect()
@@ -1085,25 +1016,22 @@ def drawButton(text, color, bgcolor, center_x, center_y):
 
     return (butSurf, butRect)
 
-
+ # get left & top coordinates for drawing mine boxes
 def getLeftTopXY(box_x, box_y):
-    # get left & top coordinates for drawing mine boxes
 
     left = marginX + box_x * (boxSize + gapSize)
     top = marginY + box_y * (boxSize + gapSize)
     return left, top
 
-
+# get center coordinates for drawing mine boxes
 def getCenterXY(box_x, box_y):
-    # get center coordinates for drawing mine boxes
-
+    
     center_x = marginX + boxSize / 2 + box_x * (boxSize + gapSize)
     center_y = marginY + boxSize / 2 + box_y * (boxSize + gapSize)
     return center_x, center_y
 
-
+# gets coordinates of box at mouse coordinates
 def getBoxAtPixel(x, y):
-    # gets coordinates of box at mouse coordinates
 
     for box_x in range(fieldWidth):
         for box_y in range(fieldHeight):
@@ -1113,26 +1041,23 @@ def getBoxAtPixel(x, y):
                 return (box_x, box_y)
     return (None, None)
 
-
+ # highlight box when mouse hovers over it
 def highlightBox(box_x, box_y):
-    # highlight box when mouse hovers over it
 
     left, top = getLeftTopXY(box_x, box_y)
     pygame.draw.rect(screen, HILITECOLOR, (left, top, boxSize, boxSize), 4)
 
-
+  # highlight button when mouse hovers over it
 def highlightButton(butRect):
-    # highlight button when mouse hovers over it
 
     linewidth = 4
     pygame.draw.rect(screen, HILITECOLOR, (
     butRect.left - linewidth, butRect.top - linewidth, butRect.width + 2 * linewidth, butRect.height + 2 * linewidth),
                      linewidth)
 
-
+ # check if player has revealed all boxes
 def gameWon(revealedBoxes, mineField):
-    # check if player has revealed all boxes
-
+   
     notMineCount = 0
 
     for box_x in range(fieldWidth):
@@ -1146,17 +1071,15 @@ def gameWon(revealedBoxes, mineField):
     else:
         return False
 
-
-def terminate():
-    # simple function to exit game
+# simple function to exit game
+def terminate():   
 
     pygame.quit()
     sys.exit()
 
-
+# check if quit or any other key is pressed
 def checkForKeyPress():
-    # check if quit or any other key is pressed
-
+    
     if len(pygame.event.get(QUIT)) > 0:
         terminate()
 
@@ -1167,6 +1090,7 @@ def checkForKeyPress():
         terminate()
     return keyUpEvents[0].key
 
+# displays when you have won a game except for the last level
 def victoryscreen():
     onVicotry = True
     while onVicotry:
@@ -1180,29 +1104,56 @@ def victoryscreen():
         click = pygame.mouse.get_pressed()
         if 0 + 100 > mouse[0] > 0 and 600 + 50 > mouse[1] > 600:
             pygame.draw.rect(screen, GREEN, (0, 600, 100, 50))
-            text = font.render("Back", True, BLACK)
+            text = font.render("Next", True, BLACK)
             screen.blit(text, (85 - text.get_width(), 649 - text.get_height()))
             if click[0] == 1:
                 onVicotry = False
                 clicksound.play()
                 newgame()
         pygame.display.update()
+        # event handling loop
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+
+# displays when player has won their final game
+def finalvictoryscreen():
+    onVicotry = True
+    while onVicotry:
+        screen.fill(GREEN)
+        screen.blit(kimclap, (100,100))
+        text = font.render("I have been defeated for the last time:(", True, BLACK)
+        screen.blit(text, (1110 - text.get_width(), 249 - text.get_height()))
+        text = font.render("Win", True, BLACK)
+        screen.blit(text, (85 - text.get_width(), 649 - text.get_height()))
+        mouse = pygame.mouse.get_pos()
+        click = pygame.mouse.get_pressed()
+        if 0 + 100 > mouse[0] > 0 and 600 + 50 > mouse[1] > 600:
+            pygame.draw.rect(screen, GREEN, (0, 600, 100, 50))
+            text = font.render("Win", True, BLACK)
+            screen.blit(text, (85 - text.get_width(), 649 - text.get_height()))
+            if click[0] == 1:
+                onVicotry = False
+                clicksound.play()
+                creators()
+        pygame.display.update()
+        # event handling loop
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
 
 
-
+# displays when player has lost the game
 def deathscreen():
     onDeath = True
     while onDeath:
         screen.fill(BIGRED)
         nukesound.play()
         screen.blit(KimSerious, (75,100))
-        screen.blit(redButton, (900,65))
-        screen.blit(KimFinger, (1005,300))
-        screen.blit(smallbomb, (220,20))
+        screen.blit(KimFinger, (700,100))
+        screen.blit(smallbomb, (420,20))
         text = font.render("Mission Failed, we'll get'em next time", True, BLACK)
         screen.blit(text, (920- text.get_width(), 649 - text.get_height()))
         text = font.render("GeT nUkEd By KiM jOgN uN", True, BLACK)
@@ -1211,12 +1162,12 @@ def deathscreen():
         screen.blit(text, (85 - text.get_width(), 649 - text.get_height()))
         mouse = pygame.mouse.get_pos()
         click = pygame.mouse.get_pressed()
-        if 0 + 100 > mouse[0] > 0 and 600 + 50 > mouse[1] > 600:
+        if 0 + 100 > mouse[0] > 0 and 600 + 50 > mouse[1] > 600: # if fail button is clicked
             pygame.draw.rect(screen, GREEN, (0, 600, 100, 50))
             text = font.render("Fail", True, BLACK)
             screen.blit(text, (85 - text.get_width(), 649 - text.get_height()))
-            if click[0] == 1:
-               pygame.quit()
+            if click[0] == 1: # if fail button is clicked
+               pygame.quit() # it quits the game
                sys.exit()
         pygame.display.update()
         for event in pygame.event.get():
@@ -1224,6 +1175,7 @@ def deathscreen():
                 pygame.quit()
                 sys.exit()
 
+# load images
 bricks = pygame.image.load("bricks.jpg")
 funnykim = pygame.image.load("funnykim.jpg")
 KJ = pygame.image.load("KJ.png")
@@ -1244,8 +1196,8 @@ KimFinger = pygame.image.load("kimfinger.jpg")
 KimSmile = pygame.image.load("kimsmile.jpg")
 KimSerious = pygame.image.load("kimserious.png")
 KimSerious = pygame.transform.scale(KimSerious, (273, 374))
-redButton = pygame.image.load("redButton.png")
-smallbomb = pygame.image.load("smallbomb.jpg")
+smallbomb = pygame.image.load("smallbomb.png")
+kimclap = pygame.image.load("kimclap.jpg")
 
 # run code
 if __name__ == '__main__':
