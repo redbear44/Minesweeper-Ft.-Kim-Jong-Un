@@ -1156,7 +1156,7 @@ def deathscreen():
         screen.blit(smallbomb, (420,20))
         text = font.render("Mission Failed, we'll get'em next time", True, BLACK)
         screen.blit(text, (920- text.get_width(), 649 - text.get_height()))
-        text = font.render("GeT nUkEd By KiM jOgN uN", True, BLACK)
+        text = font.render("GeT nUkEd By KiM jOnG uN", True, BLACK)
         screen.blit(text, (850 - text.get_width(), 600 - text.get_height()))
         text = font.render("Fail", True, BLACK)
         screen.blit(text, (85 - text.get_width(), 649 - text.get_height()))
